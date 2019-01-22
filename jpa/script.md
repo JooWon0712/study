@@ -27,7 +27,8 @@ docker pull postgres
 
 ## 데이터베이스 및 유져 생성
 create database {databaseName}
-create user {userName} with password {userPassword}
+create user {userName} with password '{userPassword}'
+alter database {databaseName} owner to {userName}
 ```
 ##
 
@@ -38,8 +39,10 @@ create user {userName} with password {userPassword}
 -p : 맵핑할 포트 번호
 -e : 환경변수 셋팅
 -d : 데몬 모드로 실행
-docker run -p 5432:5432 -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=joowon -e POSTGRES_DB=jpa --name postgres_boot -d postgres
 
+# docker run -p 5432:5432 -e POSTGRES_USER=test -e POSTGRES_PASSWORD=test -e POSTGRES_DB=jpadb --name jpa_postgres -d postgres
+
+docker run --name test_postgres -p 5432:5432 -e POSTGRES_PASSWORD=pass -d postgres
 ```
 
 This cmdlet will create Postgres instance so that you can connect to a database with:
@@ -54,7 +57,7 @@ This cmdlet will create Postgres instance so that you can connect to a database 
 -i : interactive 모드 실행
 -t : 타겟 지정(컨테이너)
 
-docker exec -i -t postgres_boot bash
+docker exec -i -t jpa_postgres bash
 ```
 
 Then you will see the containers bash as a root user.
@@ -62,7 +65,7 @@ Then you will see the containers bash as a root user.
 ### Connect to a database
 
 ```
-psql -d postgres -U postgres
+psql -d jpadb -U jpa
 ```
 
 ### Query Databases
