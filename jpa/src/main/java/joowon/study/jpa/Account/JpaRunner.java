@@ -18,19 +18,47 @@ public class JpaRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Account account = new Account();
-        account.setUsername("joowon1111");
-        account.setUserpassword("joowon0712");
 
-        Study study = new Study();
-        study.setName("Spring Data Jpa");
+        /* 1번 */
+//        Account account = new Account();
+//        account.setUsername("joowon");
+//        account.setUserpassword("joowon0712");
+//
+//        Study study = new Study();
+//        study.setName("Spring Data Jpa");
+//
+//        account.addStudy(study);
+//
+//        Session session = entityManager.unwrap(Session.class);
+//        session.save(account);
+//        session.save(study);
+//
+//        Account joowon = session.load(Account.class, account.getId());
+//        joowon.setUsername("min young");
+//        System.out.println("================");
+//        System.out.println(joowon.getUsername());
+//        entityManager.persist(account);
 
-        account.addStudy(study);
+        /* 2번 */
+//        Post post = new Post();
+//        post.setTitle("JPA 공부");
+//
+//        Comment comment = new Comment();
+//        comment.setComment("열씸히 하세요!!");
+//        post.addComment(comment);
+//
+//        Comment comment1 = new Comment();
+//        comment1.setComment("더 분발하세요");
+//        post.addComment(comment1);
 
+//        Session session = entityManager.unwrap(Session.class);
+//        session.save(post);
+        /* 3번 */
         Session session = entityManager.unwrap(Session.class);
-        session.save(account);
-        session.save(study);
+        Post post1 = session.get(Post.class, 1l);
+        Post post2 = session.get(Post.class, 4l);
+        session.delete(post1);
+        session.delete(post2);
 
-        //entityManager.persist(account);
     }
 }
