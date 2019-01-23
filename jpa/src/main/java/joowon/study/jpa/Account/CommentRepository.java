@@ -3,12 +3,10 @@ package joowon.study.jpa.Account;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 public interface CommentRepository extends MyRepository<Comment, Long> {
 
-    List<Comment> findByCommentContains(String keyword);
-
-    Page<Comment> findByLikeCountGreaterThanAndPost(int likeCount, Post post, Pageable pageable);
+    Stream<Comment> findByCommentContainsIgnoreCase(String keyword, Pageable pageable);
 
 }
