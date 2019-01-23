@@ -1,7 +1,8 @@
 package joowon.study.jpa.Account;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -14,19 +15,8 @@ public class Account {
 
     private String userpassword;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created = new Date();
-
-    private String yes;
-
-    @Transient
-    private String no;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "home_street"))
-    })
-    private Address address;
+    @OneToMany(mappedBy = "owner")
+    private Set<Study> studies = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -52,27 +42,21 @@ public class Account {
         this.userpassword = userpassword;
     }
 
-    public Date getCreated() {
-        return created;
+    public Set<Study> getStudies() {
+        return studies;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setStudies(Set<Study> studies) {
+        this.studies = studies;
     }
 
-    public String getYes() {
-        return yes;
+    public void addStudy(Study study) {
+        this.getStudies().add(study);
+        study.setOwner(this);
     }
 
-    public void setYes(String yes) {
-        this.yes = yes;
-    }
-
-    public String getNo() {
-        return no;
-    }
-
-    public void setNo(String no) {
-        this.no = no;
+    public void removeStudy(Study study) {
+        this.getStudies().remove(study);
+        study.setOwner(null);
     }
 }
