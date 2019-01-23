@@ -1,5 +1,6 @@
 package joowon.study.jpa.Account;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -18,8 +19,11 @@ import java.util.List;
 @Transactional
 public class JpaRunner implements ApplicationRunner {
 
-    @PersistenceContext
-    EntityManager entityManager;
+//    @PersistenceContext
+//    EntityManager entityManager;
+
+    @Autowired
+    PostRepository postRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -96,8 +100,11 @@ public class JpaRunner implements ApplicationRunner {
 //        posts.forEach(System.out::println);
 
         /* 7번 (Native Query */
-        List<Post> posts = entityManager.createNativeQuery("SELECT * FROM Post", Post.class).getResultList();
-        posts.forEach(System.out::println);
+//        List<Post> posts = entityManager.createNativeQuery("SELECT * FROM Post", Post.class).getResultList();
+//        posts.forEach(System.out::println);
+
+        /* 8번 Spring Data JPA 사용 */
+        postRepository.findAll().forEach(System.out::println);
 
     }
 }
