@@ -1,4 +1,4 @@
-package joowon.study.jpa.Post;
+package joowon.study.jpa.newpost;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;

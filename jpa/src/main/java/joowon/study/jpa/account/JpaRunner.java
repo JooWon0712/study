@@ -1,19 +1,10 @@
-package joowon.study.jpa.Account;
+package joowon.study.jpa.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.util.List;
 
 @Component
 @Transactional
@@ -29,7 +20,7 @@ public class JpaRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         /* 1번 */
-//        Account account = new Account();
+//        account account = new account();
 //        account.setUsername("joowon");
 //        account.setUserpassword("joowon0712");
 //
@@ -42,14 +33,14 @@ public class JpaRunner implements ApplicationRunner {
 //        session.save(account);
 //        session.save(study);
 //
-//        Account joowon = session.load(Account.class, account.getId());
+//        account joowon = session.load(account.class, account.getId());
 //        joowon.setUsername("min young");
 //        System.out.println("================");
 //        System.out.println(joowon.getUsername());
 //        entityManager.persist(account);
 
         /* 2번 */
-//        Post post = new Post();
+//        newpost post = new newpost();
 //        post.setTitle("JPA 공부");
 //
 //        Comment comment = new Comment();
@@ -65,12 +56,12 @@ public class JpaRunner implements ApplicationRunner {
 
         /* 3번 */
 //        Session session = entityManager.unwrap(Session.class);
-//        Post post1 = session.get(Post.class, 1l);
+//        newpost post1 = session.get(newpost.class, 1l);
 //        session.delete(post1);
 
         /* 4번 */
 //        Session session = entityManager.unwrap(Session.class);
-//        Post post = session.get(Post.class, 7l);
+//        newpost post = session.get(newpost.class, 7l);
 //        Comment comment = session.get(Comment.class, 8l);
 //        System.out.println("========================");
 //        System.out.println(post.getTitle());
@@ -86,21 +77,21 @@ public class JpaRunner implements ApplicationRunner {
         /*
         딘점 : Type safe하지 못하다.
          */
-//        TypedQuery<Post> query = entityManager.createQuery("SELECT p FROM Post AS p", Post.class);
-//        List<Post> posts = query.getResultList();
+//        TypedQuery<newpost> query = entityManager.createQuery("SELECT p FROM newpost AS p", newpost.class);
+//        List<newpost> posts = query.getResultList();
 //        posts.forEach(System.out::println);
 
         /* 6번 (Criteria) */
 //        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<Post> query = builder.createQuery(Post.class);
-//        Root<Post> root = query.from(Post.class);
+//        CriteriaQuery<newpost> query = builder.createQuery(newpost.class);
+//        Root<newpost> root = query.from(newpost.class);
 //        query.select(root);
 //
-//        List<Post> posts = entityManager.createQuery(query).getResultList();
+//        List<newpost> posts = entityManager.createQuery(query).getResultList();
 //        posts.forEach(System.out::println);
 
         /* 7번 (Native Query */
-//        List<Post> posts = entityManager.createNativeQuery("SELECT * FROM Post", Post.class).getResultList();
+//        List<newpost> posts = entityManager.createNativeQuery("SELECT * FROM newpost", newpost.class).getResultList();
 //        posts.forEach(System.out::println);
 
         /* 8번 Spring Data JPA 사용 */

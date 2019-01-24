@@ -1,4 +1,4 @@
-package joowon.study.jpa.Account;
+package joowon.study.jpa.account;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -46,7 +46,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" +
+        return "newpost{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 '}';

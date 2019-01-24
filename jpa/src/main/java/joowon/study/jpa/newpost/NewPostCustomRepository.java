@@ -1,4 +1,4 @@
-package joowon.study.jpa.Post;
+package joowon.study.jpa.newpost;
 
 import java.util.List;
 

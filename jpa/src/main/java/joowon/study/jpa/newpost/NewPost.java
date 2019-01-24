@@ -1,4 +1,4 @@
-package joowon.study.jpa.Post;
+package joowon.study.jpa.newpost;
 
 import org.springframework.data.domain.AbstractAggregateRoot;
 

@@ -1,6 +1,5 @@
-package joowon.study.jpa.Post;
+package joowon.study.jpa.newpost;
 
-import joowon.study.jpa.Account.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

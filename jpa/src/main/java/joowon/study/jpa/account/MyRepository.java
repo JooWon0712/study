@@ -1,4 +1,4 @@
-package joowon.study.jpa.Account;
+package joowon.study.jpa.account;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;

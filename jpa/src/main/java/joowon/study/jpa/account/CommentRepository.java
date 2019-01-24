@@ -1,6 +1,5 @@
-package joowon.study.jpa.Account;
+package joowon.study.jpa.account;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.stream.Stream;
