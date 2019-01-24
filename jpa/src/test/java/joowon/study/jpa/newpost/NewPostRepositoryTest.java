@@ -9,6 +9,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,6 +23,21 @@ public class NewPostRepositoryTest {
 
     @Autowired
     NewPostRepository newPostRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Test
+    public void save() {
+        NewPost newPost = new NewPost();
+        newPost.setTitle("entityManager.persist");
+        NewPost savePost = newPostRepository.save(newPost);
+
+        savePost.setTitle("entityManager.merge");
+
+        List<NewPost> all = newPostRepository.findAll();
+        assertThat(all.size()).isEqualTo(1);
+    }
 
     @Test
     public void crud() {
