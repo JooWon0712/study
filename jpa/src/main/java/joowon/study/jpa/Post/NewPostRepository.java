@@ -1,7 +1,7 @@
 package joowon.study.jpa.Post;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import joowon.study.jpa.CommonRepository.MyRepository;
 
-public interface NewPostRepository extends JpaRepository<NewPost, Long> , NewPostCustomRepository<NewPost> {
+public interface NewPostRepository extends MyRepository<NewPost, Long> {
 
 }
