@@ -28,9 +28,7 @@ public class WebPostControllerTest {
 
     @Test
     public void getWebPost() throws Exception {
-        WebPost webPost = new WebPost();
-        webPost.setTitle("jpa");
-        webPostRepository.save(webPost);
+        createWebPost();
 
         mockMvc.perform(get("/post/10"))
                 .andDo(print())
@@ -40,9 +38,7 @@ public class WebPostControllerTest {
 
     @Test
     public void getWebPosts() throws Exception {
-        WebPost webPost = new WebPost();
-        webPost.setTitle("jpa");
-        webPostRepository.save(webPost);
+        createWebPost();
 
         mockMvc.perform(get("/posts")
                     .param("page", "0")
@@ -50,8 +46,18 @@ public class WebPostControllerTest {
                     .param("sort", "created,desc")
                     .param("sort", "title"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.content[0].title", is("jpa")));
+                .andExpect(status().isOk());
+    }
+
+    private void createWebPost() {
+        int postsCount = 100;
+        while (postsCount > 0){
+            WebPost webPost = new WebPost();
+            webPost.setTitle("jpa");
+            webPostRepository.save(webPost);
+            postsCount--;
+        }
+
     }
 
 }
