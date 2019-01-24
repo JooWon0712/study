@@ -1,10 +1,12 @@
 package joowon.study.jpa.Post;
 
+import org.springframework.data.domain.AbstractAggregateRoot;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class NewPost {
+public class NewPost extends AbstractAggregateRoot<NewPost> {
 
     @Id @GeneratedValue
     private Long id;
@@ -47,5 +49,10 @@ public class NewPost {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public NewPost publish() {
+        this.registerEvent(new NewPostPublishedEvent(this));
+        return this;
     }
 }
