@@ -24,8 +24,27 @@ public class NewPostRepositoryTest {
     @Autowired
     NewPostRepository newPostRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private void saveNewPost() {
+        NewPost newPost = new NewPost();
+        newPost.setTitle("Spring Data JPA");
+        NewPost savePost = newPostRepository.save(newPost);
+    }
+
+    @Test
+    public void findByTitle() {
+        saveNewPost();
+
+        List<NewPost> all = newPostRepository.findByTitle("Spring Data JPA");
+        assertThat(all.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void findByTitleStartWith() {
+        saveNewPost();
+
+        List<NewPost> all = newPostRepository.findByTitleStartingWith("Spring");
+        assertThat(all.size()).isEqualTo(1);
+    }
 
     @Test
     public void save() {
