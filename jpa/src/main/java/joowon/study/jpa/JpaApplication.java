@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories(repositoryBaseClass = CommonMyRepository.class)
-@EnableJpaAuditing(auditorAwareRef = "newAccountAuditAware")
+//@EnableJpaAuditing(auditorAwareRef = "newAccountAuditAware")
 public class JpaApplication {
 
     public static void main(String[] args) {

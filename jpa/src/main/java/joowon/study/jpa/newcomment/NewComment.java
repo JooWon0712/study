@@ -20,6 +20,9 @@ public class NewComment {
 
     private String newComment;
 
+    @Enumerated(value = EnumType.STRING)
+    private NewCommentStatus newCommentStatus;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private NewPost newPost;
 

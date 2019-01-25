@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static joowon.study.jpa.newcomment.NewCommentSpecs.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 public class NewCommentRepositoryTest {
 
     @Autowired
