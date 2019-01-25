@@ -26,10 +26,28 @@ public class NewPostRepositoryTest {
     @Autowired
     NewPostRepository newPostRepository;
 
-    private void saveNewPost() {
+    @Test
+    public void updateTitle() {
+        NewPost newPost = saveNewPost();
+
+        String hibernate = "hibernate";
+        // 방법 1 (추천하지 않음)
+//        int update = newPostRepository.updateTitle(hibernate, newPost.getId());
+//        assertThat(update).isEqualTo(1);
+//
+//        Optional<NewPost> byId = newPostRepository.findById(newPost.getId());
+//        assertThat(byId.get().getTitle()).isEqualTo(hibernate);
+
+        // 방법 2
+        newPost.setTitle(hibernate);
+        List<NewPost> all = newPostRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(hibernate);
+    }
+
+    private NewPost saveNewPost() {
         NewPost newPost = new NewPost();
         newPost.setTitle("Spring Data JPA");
-        NewPost savePost = newPostRepository.save(newPost);
+        return newPostRepository.save(newPost);
     }
 
     @Test
