@@ -6,7 +6,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static joowon.study.jpa.newcomment.NewCommentSpecs.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -17,6 +20,11 @@ public class NewCommentRepositoryTest {
 
     @Autowired
     NewCommentRepository newCommentRepository;
+
+    @Test
+    public void specs() {
+        newCommentRepository.findAll(isBest().or(isGood()), PageRequest.of(0, 10));
+    }
 
     @Test
     public void getNewComment_Projection() {
