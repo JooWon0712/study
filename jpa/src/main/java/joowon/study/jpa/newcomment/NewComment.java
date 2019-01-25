@@ -1,10 +1,18 @@
 package joowon.study.jpa.newcomment;
 
+import joowon.study.jpa.newaccount.NewAccount;
 import joowon.study.jpa.newpost.NewPost;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class NewComment {
 
     @Id @GeneratedValue
@@ -20,6 +28,20 @@ public class NewComment {
     private int down;
 
     private boolean best;
+
+    @CreatedDate
+    private Date created;
+
+    @CreatedBy
+    @ManyToOne
+    private NewAccount createdBy;
+
+    @LastModifiedDate
+    private Date updated;
+
+    @LastModifiedBy
+    @ManyToOne
+    private NewAccount updatedBy;
 
     public Long getId() {
         return id;
@@ -67,5 +89,43 @@ public class NewComment {
 
     public void setBest(boolean best) {
         this.best = best;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public NewAccount getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(NewAccount createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    public NewAccount getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(NewAccount updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        System.out.println("Pre Persist is called~!");
+
     }
 }

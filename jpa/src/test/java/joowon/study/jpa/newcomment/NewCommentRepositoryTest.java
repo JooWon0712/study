@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static joowon.study.jpa.newcomment.NewCommentSpecs.*;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@SpringBootTest
 public class NewCommentRepositoryTest {
 
     @Autowired
