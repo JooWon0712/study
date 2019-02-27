@@ -31,6 +31,10 @@
 
 
 ## 참고 링크
+
+### Spring Boot로 만드는 OAuth2 시스템
+- https://brunch.co.kr/@sbcoba/1
+
 ### Spring Security OAuth2구현
 - https://minwan1.github.io/2018/02/24/2018-03-11-Spring-OAuth%EA%B5%AC%ED%98%84/
 
