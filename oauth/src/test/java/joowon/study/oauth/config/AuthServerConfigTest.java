@@ -2,6 +2,7 @@ package joowon.study.oauth.config;
 
 import joowon.study.oauth.accounts.Account;
 import joowon.study.oauth.accounts.AccountService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Description;
+import org.springframework.security.oauth2.common.util.Jackson2JsonParser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import javax.transaction.Transactional;
 
@@ -30,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Slf4j
 public class AuthServerConfigTest {
 
     @Autowired
@@ -37,6 +41,9 @@ public class AuthServerConfigTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private AppProperties appProperties;
 
     @Before
     @Transactional
@@ -53,7 +60,7 @@ public class AuthServerConfigTest {
     @Description("인증 토큰 발급 받기(성공)")
     public void getAuthToken_ok() throws Exception {
         this.mockMvc.perform(post("/oauth/token")
-                    .with(httpBasic("joowon-client", "joowon-secret"))
+                    .with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
                     .param("username", "joowon")
                     .param("password", "1234")
                     .param("grant_type", "password"))
@@ -72,5 +79,33 @@ public class AuthServerConfigTest {
                 .param("grant_type", "password"))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Description("인증 토큰 재 발급 받기(성공)")
+    public void getAuthToken_refresh() throws Exception {
+        ResultActions resultActions = this.mockMvc.perform(post("/oauth/token")
+                    .with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
+                    .param("username", "joowon")
+                    .param("password", "1234")
+                    .param("grant_type", "password"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("access_token").exists())
+                .andExpect(jsonPath("refresh_token").exists());
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        Jackson2JsonParser jsonParser = new Jackson2JsonParser();
+        String access_token = jsonParser.parseMap(responseBody).get("access_token").toString();
+        String refresh_token = jsonParser.parseMap(responseBody).get("refresh_token").toString();
+
+        this.mockMvc.perform(post("/oauth/token")
+                    .with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
+                    .param("grant_type","refresh_token")
+                    .param("refresh_token", refresh_token))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("access_token").exists())
+                .andExpect(jsonPath("refresh_token").exists());
     }
 }

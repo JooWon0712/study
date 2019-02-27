@@ -34,18 +34,21 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private AppProperties appProperties;
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        // INFO : OAuth2.0 서버의 보안 정보 설정
+        // TODO : OAuth2.0 서버의 보안 정보 설정
         security.passwordEncoder(passwordEncoder);
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // INFO : OAuth2.0 서버의 ClientDetailsService 설정
+        // TODO : OAuth2.0 서버의 ClientDetailsService 설정
         clients.inMemory()
-                .withClient("joowon-client")
-                .secret(this.passwordEncoder.encode("joowon-secret"))
+                .withClient(appProperties.getClientId())
+                .secret(this.passwordEncoder.encode(appProperties.getClientSecret()))
                 .authorizedGrantTypes("password", "refresh_token")
                 .scopes("read", "write")
                 .accessTokenValiditySeconds(10 * 60)
@@ -54,7 +57,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // INFO : OAuth2.0 서버가 작동하기 위한 EndPoint에 대한 설정
+        // TODO : OAuth2.0 서버가 작동하기 위한 EndPoint에 대한 설정
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(accountService)
                 .tokenStore(tokenStore);
