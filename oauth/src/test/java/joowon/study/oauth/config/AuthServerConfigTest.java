@@ -77,7 +77,7 @@ public class AuthServerConfigTest {
                 .param("password", "1234")
                 .param("grant_type", "password"))
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
